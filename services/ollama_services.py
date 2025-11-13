@@ -2,7 +2,7 @@ import requests
 import subprocess
 import time
 from typing import Tuple, Optional
-
+from openai import OpenAI
 def get_ollama_url(host: str = "http://localhost:11434", 
                    port: int = 11434,
                    auto_start: bool = True,
@@ -90,7 +90,11 @@ def get_available_models_my_version():
         # return models
     except:
         return 'Error in geting available models from ollama'
-    
+
+def get_openai_client_from_ollama():
+    url, _,_ = get_ollama_url()
+    print(f"URL: {url}")
+    return OpenAI(base_url=url+'/v1', api_key='ollama') 
 
 # Example usage
 if __name__ == "__main__":
